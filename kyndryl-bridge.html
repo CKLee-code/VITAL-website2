@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyndryl Bridge | 30+ Years of Infrastructure Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --kyndryl-orange: #FF6200;
+            --kyndryl-orange-light: #FF8533;
+            --kyndryl-dark: #0D0D0D;
+            --text-primary: #161616;
+            --text-secondary: #525252;
+            --bg-light: #F4F4F4;
+        }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--kyndryl-orange);
+            text-decoration: none;
+        }
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { color: var(--kyndryl-orange); }
+        .hero {
+            margin-top: 80px;
+            min-height: 60vh;
+            background: linear-gradient(135deg, #0D0D0D 0%, #FF6200 100%);
+            display: flex;
+            align-items: center;
+            color: white;
+            padding: 4rem 2rem;
+        }
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--kyndryl-orange);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        .feature-card {
+            background: var(--bg-light);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--kyndryl-orange);
+        }
+        .feature-card h3 {
+            color: var(--kyndryl-orange);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .pipeline {
+            background: linear-gradient(135deg, #0D0D0D 0%, #1a1a1a 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .pipeline-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 3rem auto;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .pipeline-step {
+            background: rgba(255,98,0,0.2);
+            padding: 2rem;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 150px;
+            position: relative;
+        }
+        .pipeline-step::after {
+            content: '→';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--kyndryl-orange-light);
+        }
+        .pipeline-step:last-child::after { display: none; }
+        .cta-button {
+            display: inline-block;
+            background: var(--kyndryl-orange);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--kyndryl-orange);
+        }
+        .cta-button:hover {
+            background: transparent;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="vital-website-enhanced.html" class="logo">VITAL | Kyndryl</a>
+            <a href="vital-website-enhanced.html" class="back-link">← Back to VITAL</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Kyndryl Bridge</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem;">30+ Years of Enterprise Infrastructure Excellence in One Platform</p>
+            <p style="font-size: 1.2rem; opacity: 0.9;">The culmination of Kyndryl's operational know-how: Infrastructure Data Lake + AI Analytics Engine + DevSecOps Automation</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">What is Kyndryl Bridge?</h2>
+        <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+            Kyndryl Bridge represents the distillation of over 30 years of enterprise infrastructure operational excellence. 
+            It's not just a platform—it's the embodiment of decades of expertise in managing the world's most critical IT systems, 
+            now available as an integrated AIOps solution.
+        </p>
+
+        <div class="grid-2">
+            <div class="feature-card">
+                <h3>🗄️ Infrastructure Data Lake</h3>
+                <p><strong>Comprehensive Telemetry Collection</strong></p>
+                <ul style="margin: 1rem 0 0 1.5rem; line-height: 2;">
+                    <li>Real-time data ingestion from heterogeneous environments</li>
+                    <li>Unified data model across all IT domains</li>
+                    <li>Historical trend analysis and pattern recognition</li>
+                    <li>30+ years of operational insights embedded</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🧠 Advanced Analytics Engine</h3>
+                <p><strong>AI/ML-Powered Intelligence</strong></p>
+                <ul style="margin: 1rem 0 0 1.5rem; line-height: 2;">
+                    <li>Machine learning for anomaly detection</li>
+                    <li>Predictive analytics for proactive management</li>
+                    <li>Root cause analysis automation</li>
+                    <li>Actionable insights directing teams to act</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>⚙️ DevSecOps Automation Engine</h3>
+                <p><strong>Intelligent Remediation</strong></p>
+                <ul style="margin: 1rem 0 0 1.5rem; line-height: 2;">
+                    <li>Event-driven automation workflows</li>
+                    <li>Security-integrated deployment pipelines</li>
+                    <li>Self-healing infrastructure capabilities</li>
+                    <li>Automated compliance enforcement</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔧 8 Core Integrated Tools</h3>
+                <p><strong>Full-Stack AIOps Capabilities</strong></p>
+                <ul style="margin: 1rem 0 0 1.5rem; line-height: 2;">
+                    <li>Unified console for complete visibility</li>
+                    <li>Extended observability across domains</li>
+                    <li>Intelligent management and orchestration</li>
+                    <li>Governed experiences with compliance</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="pipeline">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Kyndryl Bridge Workflow</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">Enable → Extend → Analyze → Insights → Report → Automate</p>
+        
+        <div class="pipeline-steps">
+            <div class="pipeline-step">
+                <h3 style="color: var(--kyndryl-orange-light); margin-bottom: 0.5rem;">Enable</h3>
+                <p>Configure account on AIOps Platform</p>
+            </div>
+            <div class="pipeline-step">
+                <h3 style="color: var(--kyndryl-orange-light); margin-bottom: 0.5rem;">Extend</h3>
+                <p>Pull in data using Extension Services</p>
+            </div>
+            <div class="pipeline-step">
+                <h3 style="color: var(--kyndryl-orange-light); margin-bottom: 0.5rem;">Analyze</h3>
+                <p>Apply ML/AI on Kyndryl Portfolio data</p>
+            </div>
+            <div class="pipeline-step">
+                <h3 style="color: var(--kyndryl-orange-light); margin-bottom: 0.5rem;">Insights</h3>
+                <p>Uncover actionable insights</p>
+            </div>
+            <div class="pipeline-step">
+                <h3 style="color: var(--kyndryl-orange-light); margin-bottom: 0.5rem;">Report</h3>
+                <p>Visualize dashboards & trends</p>
+            </div>
+            <div class="pipeline-step">
+                <h3 style="color: var(--kyndryl-orange-light); margin-bottom: 0.5rem;">Automate</h3>
+                <p>Connect automation to events</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 3rem; font-size: 1.1rem; opacity: 0.9;">
+            <strong>Result:</strong> Reduce vulnerabilities, eliminate noise, improve response time, and enhance coordination across your entire IT estate
+        </p>
+    </section>
+
+    <section style="background: var(--bg-light);">
+        <h2 class="section-title">Business Value</h2>
+        <div class="grid-2">
+            <div>
+                <h3 style="color: var(--kyndryl-orange); margin-bottom: 1rem; font-size: 1.5rem;">For IT Operations</h3>
+                <ul style="line-height: 2; margin-left: 1.5rem;">
+                    <li>Faster mean time to resolution (MTTR)</li>
+                    <li>Proactive issue prevention</li>
+                    <li>Reduced operational costs</li>
+                    <li>Improved system reliability and uptime</li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: var(--kyndryl-orange); margin-bottom: 1rem; font-size: 1.5rem;">For Business Leaders</h3>
+                <ul style="line-height: 2; margin-left: 1.5rem;">
+                    <li>Data-driven decision making</li>
+                    <li>Accelerated digital transformation</li>
+                    <li>Enhanced customer experience</li>
+                    <li>Competitive advantage through insights</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 3rem; border-radius: 8px; margin-top: 3rem; border-left: 5px solid var(--kyndryl-orange);">
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                <strong style="color: var(--kyndryl-orange);">Source:</strong> 
+                Kyndryl Bridge AIOps Deep Dive (August 31, 2025), Kyndryl Bridge Architecture Documentation
+            </p>
+        </div>
+    </section>
+
+    <section style="background: linear-gradient(135deg, #0D0D0D 0%, #FF6200 100%); color: white; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Experience Kyndryl Bridge in VITAL Workshop</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+            Get hands-on access to the platform and discover how 30+ years of infrastructure excellence can transform your operations
+        </p>
+        <a href="vital-website-enhanced.html#workshop" class="cta-button">Schedule Workshop</a>
+    </section>
+
+    <footer style="background: #0D0D0D; color: rgba(255,255,255,0.7); padding: 2rem; text-align: center;">
+        <p>© 2025 Kyndryl Inc. All rights reserved.</p>
+    </footer>
+</body>
+</html>

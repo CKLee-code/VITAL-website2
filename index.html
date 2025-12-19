@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITAL - Client Experience Orchestration Framework | Kyndryl</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --kyndryl-orange: #FF6200;
+            --kyndryl-orange-light: #FF8533;
+            --kyndryl-orange-dark: #CC4E00;
+            --kyndryl-dark: #0D0D0D;
+            --text-primary: #161616;
+            --text-secondary: #525252;
+            --bg-light: #F4F4F4;
+        }
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--kyndryl-orange);
+        }
+        .logo-text { color: var(--text-primary); }
+        .nav-center {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-center a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-center a:hover { color: var(--kyndryl-orange); }
+        .language-btn {
+            background: transparent;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .language-btn:hover {
+            border-color: var(--kyndryl-orange);
+            color: var(--kyndryl-orange);
+        }
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            min-width: 150px;
+            z-index: 1001;
+        }
+        .language-dropdown.active { display: block; }
+        .language-option {
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .language-option:hover { background: var(--bg-light); }
+        .language-option.active {
+            background: var(--kyndryl-orange);
+            color: white;
+        }
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            background: linear-gradient(135deg, #0D0D0D 0%, #1a1a1a 50%, #FF6200 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,98,0,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+        .hero-content {
+            max-width: 1400px;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        .hero-tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--kyndryl-orange-light);
+            margin-bottom: 1rem;
+        }
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 2rem auto;
+            opacity: 0.95;
+        }
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--kyndryl-orange);
+        }
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 900px;
+            margin-bottom: 4rem;
+            line-height: 1.8;
+        }
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        .philosophy-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 5px solid var(--kyndryl-orange);
+        }
+        .philosophy-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(255,98,0,0.2);
+        }
+        .philosophy-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--kyndryl-orange);
+            margin-bottom: 1rem;
+        }
+        .philosophy-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .philosophy-card p {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        .framework-section {
+            background: var(--bg-light);
+        }
+        .framework-diagram {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .framework-diagram img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .knowledge-highlight {
+            background: linear-gradient(135deg, #0D0D0D 0%, #1a1a1a 100%);
+            color: white;
+            padding: 6rem 2rem;
+        }
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        .knowledge-card {
+            background: rgba(255,255,255,0.08);
+            padding: 3rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--kyndryl-orange);
+        }
+        .knowledge-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--kyndryl-orange-light);
+        }
+        .knowledge-card ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        .knowledge-card li {
+            margin: 0.8rem 0;
+            line-height: 1.8;
+        }
+        .link-button {
+            display: inline-block;
+            background: var(--kyndryl-orange);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .link-button:hover {
+            background: var(--kyndryl-orange-dark);
+            transform: translateY(-2px);
+        }
+        .image-section {
+            margin: 4rem 0;
+        }
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .image-grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .cta-section {
+            background: linear-gradient(135deg, #0D0D0D 0%, #FF6200 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--kyndryl-orange);
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid white;
+            margin: 1rem;
+        }
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+        footer {
+            background: #0D0D0D;
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-center { display: none; }
+            .knowledge-grid, .philosophy-grid, .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">VITAL <span class="logo-text">| Kyndryl</span></div>
+            <ul class="nav-center">
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#framework">Framework</a></li>
+                <li><a href="#knowledge">Knowledge</a></li>
+                <li><a href="kyndryl-bridge.html">Kyndryl Bridge</a></li>
+            </ul>
+            <div class="language-selector" style="position: relative;">
+                <button class="language-btn" onclick="toggleLang()">
+                    🌐 <span id="curr-lang">EN</span> ▼
+                </button>
+                <div class="language-dropdown" id="lang-dropdown">
+                    <div class="language-option active" onclick="changeLang('en')">English</div>
+                    <div class="language-option" onclick="changeLang('ko')">한국어</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="hero-title">VITAL</h1>
+            <p class="hero-subtitle" id="hero-subtitle">Client Experience Orchestration Framework</p>
+            <p class="hero-tagline" id="hero-tagline">"Making Clients the Heroes"</p>
+            <p class="hero-description" id="hero-desc">
+                Through Kyndryl Vital, clients directly experience Kyndryl know-how and create their own unique stories. 
+                This immersive journey empowers them to become heroes in their field of work.
+            </p>
+        </div>
+    </section>
+
+    <!-- Philosophy Introduction -->
+    <section style="background: var(--bg-light);">
+        <h2 class="section-title" id="phil-intro-title">A Fundamental Shift</h2>
+        <p class="section-subtitle" id="phil-intro-text">
+            At the heart of Vital lies a fundamental shift. Rather than positioning ourselves as experts 
+            delivering solutions, Vital orchestrates experiences where clients become the heroes of their 
+            own transformation stories.
+        </p>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy">
+        <h2 class="section-title" id="phil-title">The VITAL Philosophy</h2>
+        <p class="section-subtitle" id="phil-subtitle">This manifests in three ways:</p>
+
+        <div class="philosophy-grid">
+            <div class="philosophy-card">
+                <div class="philosophy-number">01</div>
+                <h3 id="phil1-title">Show, Not Telling</h3>
+                <p id="phil1-text">
+                    We help them show, not tell -- transforming abstract strategies into tangible demonstrations, 
+                    playable experiences, and visual narratives.
+                </p>
+            </div>
+
+            <div class="philosophy-card">
+                <div class="philosophy-number">02</div>
+                <h3 id="phil2-title">Client Discovery over Delivery</h3>
+                <p id="phil2-text">
+                    Clients discover insights through guided exploration rather than receiving conclusions.
+                </p>
+            </div>
+
+            <div class="philosophy-card">
+                <div class="philosophy-number">03</div>
+                <h3 id="phil3-title">Capability over Dependency</h3>
+                <p id="phil3-text">
+                    We build client capability to continue transformation independently rather than creating dependency.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Framework Section -->
+    <section class="framework-section" id="framework">
+        <h2 class="section-title" id="frame-title">The VITAL Framework</h2>
+        <p class="section-subtitle" id="frame-subtitle">
+            The VITAL Framework operates as an integrated system with five interconnected components, 
+            each essential to orchestrating transformative client experiences.
+        </p>
+
+        <div class="framework-diagram">
+            <img src="images/image1.png" alt="VITAL Framework Capabilities" />
+        </div>
+    </section>
+
+    <!-- Knowledge Base Section -->
+    <section class="knowledge-highlight" id="knowledge">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <h2 class="section-title" style="color: white;" id="know-title">Our Orchestration is Powered by Decades of Knowledge</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);" id="know-subtitle">
+                And a network of experts ready to help clients create their transformation stories.
+            </p>
+
+            <div class="knowledge-grid">
+                <div class="knowledge-card">
+                    <h3>🌉 Knowledge Base: Kyndryl Bridge</h3>
+                    <p>Kyndryl Bridge includes 30 years of infrastructure operational data, actionable insights, 
+                    and pre-defined automation sets for various industries where clients can:</p>
+                    <ul>
+                        <li>Simulate their own business cases</li>
+                        <li>Develop their own strategies</li>
+                        <li>Experience real-world scenarios</li>
+                        <li>Build confidence in their transformation journey</li>
+                    </ul>
+                    <a href="kyndryl-bridge.html" class="link-button">Explore Kyndryl Bridge →</a>
+                </div>
+
+                <div class="knowledge-card">
+                    <h3>🤖 Kyndryl Agentic AI Framework</h3>
+                    <p>This helps clients design their own stories in a rapid way through:</p>
+                    <ul>
+                        <li>100+ pre-built AI agents across industries</li>
+                        <li>Rapid prototyping capabilities</li>
+                        <li>Enterprise-grade AI framework</li>
+                        <li>Hands-on co-creation experiences</li>
+                    </ul>
+                    <a href="agentic-ai.html" class="link-button">Discover Agentic AI →</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem; background: rgba(255,255,255,0.08); padding: 3rem; border-radius: 12px;">
+                <h3 style="color: var(--kyndryl-orange-light); font-size: 1.8rem; margin-bottom: 2rem;">People Database</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h4 style="color: white; margin-bottom: 0.5rem;">Subject Matter Experts</h4>
+                        <p style="opacity: 0.9;">By domain, technology, and industries</p>
+                    </div>
+                    <div>
+                        <h4 style="color: white; margin-bottom: 0.5rem;">Creative Professionals</h4>
+                        <p style="opacity: 0.9;">Designers, storytellers, and visual communicators</p>
+                    </div>
+                    <div>
+                        <h4 style="color: white; margin-bottom: 0.5rem;">Story Champions</h4>
+                        <p style="opacity: 0.9;">Experts in transformation narratives</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Framework Detail Images Section -->
+    <section style="background: var(--bg-light);">
+        <h2 class="section-title" id="detail-title">VITAL Framework in Detail</h2>
+        
+        <div class="image-section">
+            <h3 style="color: var(--kyndryl-orange); margin-bottom: 1.5rem;">Every Story Begins with a Comprehensive Brief</h3>
+            <img src="images/image2.png" alt="VITAL Client Brief" />
+        </div>
+
+        <div class="image-section">
+            <h3 style="color: var(--kyndryl-orange); margin-bottom: 1.5rem;">Knowledge Base & People Database</h3>
+            <img src="images/image3.png" alt="Knowledge Base" />
+        </div>
+
+        <div class="image-section">
+            <h3 style="color: var(--kyndryl-orange); margin-bottom: 1.5rem;">Tools & Capabilities</h3>
+            <img src="images/image4.png" alt="VITAL Tools" />
+        </div>
+
+        <div class="image-section">
+            <h3 style="color: var(--kyndryl-orange); margin-bottom: 1.5rem;">Experience Orchestration</h3>
+            <div class="image-grid">
+                <img src="images/image5.png" alt="Experience Orchestration 1" />
+                <img src="images/image6.png" alt="Experience Orchestration 2" />
+            </div>
+        </div>
+
+        <div class="image-section">
+            <h3 style="color: var(--kyndryl-orange); margin-bottom: 1.5rem;">Output & Deliverables</h3>
+            <img src="images/image7.png" alt="VITAL Outputs" />
+        </div>
+    </section>
+
+    <!-- Additional Content Section -->
+    <section>
+        <h2 class="section-title" id="success-title">Success Stories & Impact</h2>
+        
+        <div class="image-grid">
+            <img src="images/image8.png" alt="Success Story 1" />
+            <img src="images/image9.png" alt="Success Story 2" />
+            <img src="images/image10.png" alt="Success Story 3" />
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;" id="cta-title">Experience VITAL Workshop</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;" id="cta-subtitle">
+            Become the hero of your transformation story
+        </p>
+        <a href="/cdn-cgi/l/email-protection#e89e819c8984a88391868c9a9184c68b8785" class="cta-button" id="cta-btn1">Schedule Workshop</a>
+        <a href="kyndryl-bridge.html" class="cta-button" id="cta-btn2">Explore Our Platforms</a>
+    </section>
+
+    <footer>
+        <p>© 2025 Kyndryl Inc. All rights reserved. | The Heart of Progress™</p>
+        <p style="margin-top: 1rem; opacity: 0.7;">Based on VITAL Framework Document, Kyndryl Bridge AIOps, Kyndryl AI Gen AI Capabilities</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const translations = {
+            en: {
+                'hero-title': 'VITAL',
+                'hero-subtitle': 'Client Experience Orchestration Framework',
+                'hero-tagline': '"Making Clients the Heroes"',
+                'hero-desc': 'Through Kyndryl Vital, clients directly experience Kyndryl know-how and create their own unique stories. This immersive journey empowers them to become heroes in their field of work.',
+                'phil-intro-title': 'A Fundamental Shift',
+                'phil-intro-text': 'At the heart of Vital lies a fundamental shift. Rather than positioning ourselves as experts delivering solutions, Vital orchestrates experiences where clients become the heroes of their own transformation stories.',
+                'phil-title': 'The VITAL Philosophy',
+                'phil-subtitle': 'This manifests in three ways:',
+                'phil1-title': 'Show, Not Telling',
+                'phil1-text': 'We help them show, not tell -- transforming abstract strategies into tangible demonstrations, playable experiences, and visual narratives.',
+                'phil2-title': 'Client Discovery over Delivery',
+                'phil2-text': 'Clients discover insights through guided exploration rather than receiving conclusions.',
+                'phil3-title': 'Capability over Dependency',
+                'phil3-text': 'We build client capability to continue transformation independently rather than creating dependency.',
+                'frame-title': 'The VITAL Framework',
+                'frame-subtitle': 'The VITAL Framework operates as an integrated system with five interconnected components, each essential to orchestrating transformative client experiences.',
+                'know-title': 'Our Orchestration is Powered by Decades of Knowledge',
+                'know-subtitle': 'And a network of experts ready to help clients create their transformation stories.',
+                'detail-title': 'VITAL Framework in Detail',
+                'success-title': 'Success Stories & Impact',
+                'cta-title': 'Experience VITAL Workshop',
+                'cta-subtitle': 'Become the hero of your transformation story',
+                'cta-btn1': 'Schedule Workshop',
+                'cta-btn2': 'Explore Our Platforms'
+            },
+            ko: {
+                'hero-title': 'VITAL',
+                'hero-subtitle': '고객 경험 오케스트레이션 프레임워크',
+                'hero-tagline': '"고객을 영웅으로 만들기"',
+                'hero-desc': 'Kyndryl Vital을 통해 고객은 Kyndryl의 노하우를 직접 경험하고 자신만의 고유한 스토리를 만듭니다. 이 몰입형 여정은 그들이 자신의 업무 분야에서 영웅이 될 수 있도록 힘을 실어줍니다.',
+                'phil-intro-title': '근본적인 변화',
+                'phil-intro-text': 'Vital의 핵심에는 근본적인 변화가 있습니다. 우리 자신을 솔루션을 제공하는 전문가로 포지셔닝하는 대신, Vital은 고객이 자신의 변혁 스토리의 영웅이 되는 경험을 조율합니다.',
+                'phil-title': 'VITAL 철학',
+                'phil-subtitle': '이는 세 가지 방식으로 나타납니다:',
+                'phil1-title': '보여주기, 말하지 않기',
+                'phil1-text': '우리는 추상적인 전략을 실질적인 시연, 경험 가능한 사례, 시각적 내러티브로 변환하여 보여줍니다.',
+                'phil2-title': '전달이 아닌 고객 발견',
+                'phil2-text': '고객은 결론을 받는 대신 가이드된 탐색을 통해 인사이트를 발견합니다.',
+                'phil3-title': '의존성이 아닌 역량',
+                'phil3-text': '의존성을 만드는 대신 고객이 독립적으로 변혁을 지속할 수 있는 역량을 구축합니다.',
+                'frame-title': 'VITAL 프레임워크',
+                'frame-subtitle': 'VITAL 프레임워크는 혁신적인 고객 경험을 조율하는 데 필수적인 5개의 상호 연결된 구성 요소로 작동하는 통합 시스템입니다.',
+                'know-title': '수십 년의 지식으로 구동되는 오케스트레이션',
+                'know-subtitle': '그리고 고객의 변혁 스토리를 만드는 데 도움을 줄 전문가 네트워크',
+                'detail-title': 'VITAL 프레임워크 세부사항',
+                'success-title': '성공 사례 및 영향',
+                'cta-title': 'VITAL 워크샵 경험',
+                'cta-subtitle': '여러분의 변혁 스토리의 영웅이 되세요',
+                'cta-btn1': '워크샵 일정 잡기',
+                'cta-btn2': '플랫폼 살펴보기'
+            }
+        };
+
+        function toggleLang() {
+            document.getElementById('lang-dropdown').classList.toggle('active');
+        }
+
+        function changeLang(lang) {
+            document.getElementById('curr-lang').textContent = lang.toUpperCase();
+            Object.keys(translations[lang]).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+            document.querySelectorAll('.language-option').forEach(opt => {
+                opt.classList.remove('active');
+                if ((lang === 'en' && opt.textContent === 'English') || 
+                    (lang === 'ko' && opt.textContent === '한국어')) {
+                    opt.classList.add('active');
+                }
+            });
+            document.getElementById('lang-dropdown').classList.remove('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.language-selecto
